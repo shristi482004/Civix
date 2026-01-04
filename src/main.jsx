@@ -5,6 +5,8 @@ import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider } f
 import BrowseIssues from './pages/BrowseIssues.jsx'
 import ReportIssues from './pages/ReportIssues.jsx'
 import HomePage from './pages/HomePage.jsx'
+import SignIn from './pages/SignIn.jsx'
+import SignUp from './pages/SignUp.jsx'
 
 
 const router = createBrowserRouter(
@@ -13,6 +15,9 @@ const router = createBrowserRouter(
     <Route path='' element={<HomePage />}/>
     <Route path='browse' element={<BrowseIssues />}/>
     <Route path='report' element={<ReportIssues />}/>
+    <Route path='login' element={<SignIn />}/>
+    <Route path='signup' element={<SignUp />}/>
+
   </Route>
   )
 )
