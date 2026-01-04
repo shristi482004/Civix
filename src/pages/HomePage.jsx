@@ -10,7 +10,17 @@ import {
   Check
 } from "lucide-react";
 
+
+
+
+
 const HomePage = () => {
+
+
+
+
+
+
   const categories = [
     { name: "Road & Infrastructure", icon: "🛣️" },
     { name: "Sanitation", icon: "🗑️" },
@@ -109,6 +119,36 @@ const HomePage = () => {
         </div>
       </section>
 
+
+      <section className="mx-auto max-w-7xl px-6 py-20">
+  <div className="max-w-3xl">
+    <h2 className="text-3xl font-semibold text-gray-900">
+      About Civix
+    </h2>
+
+    <p className="mt-4 text-lg text-gray-600">
+      Civix is a community-driven platform that helps citizens report,
+      track, and stay informed about civic issues in their neighborhoods.
+    </p>
+
+    <p className="mt-4 text-gray-600">
+      By making public problems visible and structured, Civix encourages
+      accountability, transparency, and collective action.
+    </p>
+
+    <ul className="mt-6 space-y-3 text-gray-700">
+      <li>• Report civic issues with location and images</li>
+      <li>• Track issues reported by others in the community</li>
+      <li>• Build a shared civic record for transparency</li>
+    </ul>
+
+    <p className="mt-6 font-medium text-teal-700">
+      Built for citizens. Designed for transparency.
+    </p>
+  </div>
+</section>
+
+
       {/* STATS */}
       <section className="bg-gray-50 py-16">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-6 md:grid-cols-4">
@@ -126,6 +166,7 @@ const HomePage = () => {
           Reporting a civic issue takes just a few minutes.
         </p>
 
+
         <div className="mx-auto mt-12 grid max-w-6xl grid-cols-1 gap-10 px-6 md:grid-cols-4">
           <HowCard icon={<FileText />} title="Describe the Issue" />
           <HowCard icon={<Camera />} title="Add a Photo" />
@@ -137,7 +178,7 @@ const HomePage = () => {
       {/* CATEGORIES */}
       <section className="bg-gray-50 py-16">
         <h2 className="text-center text-3xl font-bold">Issue Categories</h2>
-
+      
         <div className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-6 px-6 md:grid-cols-5">
           {categories.map((cat) => (
             <div

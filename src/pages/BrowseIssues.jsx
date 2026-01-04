@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import IssueCard from "../components/IssueCard";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { db } from "../firebase";
+import IssueModal from "../components/IssueModal";
+
 
 const categories = [
   "All Categories",
@@ -95,18 +99,39 @@ const BrowseIssues = () => {
   const [category, setCategory] = useState("All Categories");
   const [status, setStatus] = useState("All Statuses");
 
-  // 🔁 Backend-ready data loader
-  useEffect(() => {
-    // TODAY: dummy data
-    setIssues(dummyIssues);
 
-    // TOMORROW:
-    // const fetchIssues = async () => {
-    //   const data = await getIssuesFromFirestore();
-    //   setIssues(data);
-    // };
-    // fetchIssues();
-  }, []);
+  const [selectedIssue, setSelectedIssue] = useState(null);
+
+  //  Backend-ready data loader
+  useEffect(() => {
+  const fetchIssues = async () => {
+    try {
+      const q = query(
+        collection(db, "issues"),
+        orderBy("createdAt", "desc")
+      );
+
+      const querySnapshot = await getDocs(q);
+
+      const firestoreIssues = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      // 🔥 MERGE: Firestore issues first, then dummy
+      setIssues([...firestoreIssues, ...dummyIssues]);
+
+    } catch (error) {
+      console.error("Error fetching issues:", error);
+      // fallback: show dummy issues only
+      setIssues(dummyIssues);
+    }
+  };
+
+  fetchIssues();
+}, []);
+
+
 
   const filteredIssues = issues.filter((issue) => {
     const matchesSearch =
@@ -187,9 +212,20 @@ const BrowseIssues = () => {
       {/* Grid */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {filteredIssues.map((issue) => (
-          <IssueCard key={issue.id} issue={issue} />
+          <IssueCard
+  key={issue.id}
+  issue={issue}
+  onView={setSelectedIssue}
+/>
+
         ))}
       </div>
+
+      <IssueModal
+  issue={selectedIssue}
+  onClose={() => setSelectedIssue(null)}
+/>
+
     </div>
   );
 };

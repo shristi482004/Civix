@@ -6,7 +6,7 @@ const statusStyles = {
   resolved: "bg-green-100 text-green-700"
 };
 
-const IssueCard = ({ issue }) => {
+const IssueCard = ({ issue, onView  }) => {
   return (
     <div className="rounded-xl border bg-white shadow-sm hover:shadow-md transition">
       <img
@@ -42,15 +42,22 @@ const IssueCard = ({ issue }) => {
             {issue.location}
           </div>
 
-          <div className="flex items-center gap-1">
-            <Clock size={14} />
-            {issue.createdAt}
-          </div>
+         <div className="flex items-center gap-1">
+  <Clock size={14} />
+  {issue.createdAt?.toDate
+    ? issue.createdAt.toDate().toLocaleDateString()
+    : issue.createdAt}
+</div>
+
         </div>
 
-        <button className="text-sm font-medium text-teal-600 hover:underline">
-          View Details →
-        </button>
+        <button
+  onClick={() => onView(issue)}
+  className="text-sm font-medium text-teal-600 hover:underline"
+>
+  View Details →
+</button>
+
       </div>
     </div>
   );
