@@ -1,4 +1,3 @@
-<img width="1467" height="830" alt="image" src="https://github.com/user-attachments/assets/437ef394-0812-4c8a-81f3-9728be7d065d" />
 # Civix — A Community-Powered Civic Issue Ledger
 
 Civix is a modern, community-driven platform designed to document, track, and resolve civic issues in a transparent and structured manner. It transforms everyday local problems into a shared public record — enabling visibility, accountability, and collective action.
