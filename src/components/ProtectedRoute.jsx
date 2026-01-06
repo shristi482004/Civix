@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "/Users/shristishristi/Desktop/civix/Civix/src/context/Authcontext.jsx";
+import { useAuth } from "../context/Authcontext";
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
