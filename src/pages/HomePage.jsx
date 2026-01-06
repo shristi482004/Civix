@@ -45,13 +45,13 @@ const HomePage = () => {
     <div className="w-full bg-[#FDFCFB]">
 
       {/* HERO */}
-      <section className="-mt-24 pb-24 relative min-h-screen flex items-center justify-center overflow-hidden graph-paper">
+      <section className="pt-24 pb-24 md:-mt-24 relative min-h-screen flex items-center justify-center overflow-hidden graph-paper">
         <div className="relative z-10 max-w-6xl px-6 text-center">
           <p className="animate-fade-up delay-100 text-[11px] font-bold uppercase tracking-[0.35em] text-teal-700/70 mb-8">
             The Community’s Digital Leader
           </p>
 
-          <h1 className="animate-fade-up delay-200 text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-[1.1] text-gray-900 mb-10">
+          <h1 className="animate-fade-up delay-200 text-4xl md:text-6xl lg:text-7xl font-serif font-bold leading-[1.1] text-gray-900 mb-10">
             <span className="inline-block bg-teal-100 px-6 py-3 rounded-[26px] text-teal-900 border border-teal-200 -rotate-2 mr-2">
               Civix.
             </span>
