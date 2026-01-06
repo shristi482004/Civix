@@ -1,142 +1,128 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { MapPin } from "lucide-react";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase.js";
-import { useAuth } from "/Users/shristishristi/Desktop/civix/Civix/src/context/Authcontext.jsx";
+import { useAuth } from "../context/Authcontext.jsx";
 import toast from "react-hot-toast";
 
-
-
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+
+  const displayName =
+    user?.displayName ||
+    user?.email?.split("@")[0] ||
+    "Citizen";
 
   const handleLogout = async () => {
     await signOut(auth);
-      toast.success("Logged out successfully");
+    toast.success("Logged out successfully");
     navigate("/login");
   };
 
+  const links = [
+    { to: "/", label: "HOME" },
+    { to: "/browse", label: "ISSUES FEED" },
+    user && { to: "/report", label: "REPORT ISSUE" },
+    user && { to: "/profile", label: "MY REPORTS" },
+    isAdmin && { to: "/admin", label: "ADMIN" }
+  ].filter(Boolean);
+
   return (
-    <nav className="w-full bg-[#E6F4F1] px-6 py-4">
-      <div className="mx-auto flex max-w-7xl items-center justify-between">
-        
-        {/* Left: Logo */}
-        <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-500">
-            <MapPin className="h-5 w-5 text-white" />
-          </div>
-          <span className="text-xl font-semibold text-gray-900">
-            Civix
-          </span>
-        </div>
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+      <div className="mx-auto max-w-7xl px-5 py-4 flex items-center justify-between">
 
-        {/* Center: Navigation */}
-        <div className="hidden md:flex items-center gap-2 rounded-full bg-[#D9EFEB] px-2 py-1">
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              `rounded-full px-4 py-1.5 text-sm font-medium transition
-              ${
-                isActive
-                  ? "bg-[#C7E7E1] text-teal-700"
-                  : "text-gray-700 hover:bg-[#C7E7E1]"
-              }`
-            }
-          >
-            Home
-          </NavLink>
+        {/* LOGO */}
+        <NavLink to="/" className="text-2xl font-serif font-bold text-gray-900">
+          civix<span className="text-teal-600">.</span>
+        </NavLink>
 
-          <NavLink
-            to="/browse"
-            className={({ isActive }) =>
-              `rounded-full px-4 py-1.5 text-sm font-medium transition
-              ${
-                isActive
-                  ? "bg-[#C7E7E1] text-teal-700"
-                  : "text-gray-700 hover:bg-[#C7E7E1]"
-              }`
-            }
-          >
-            Browse Issues
-          </NavLink>
-
-          {user && (
+        {/* DESKTOP NAV */}
+        <nav className="hidden md:flex items-center gap-10">
+          {links.map(({ to, label }) => (
             <NavLink
-              to="/report"
+              key={to}
+              to={to}
               className={({ isActive }) =>
-                `rounded-full px-4 py-1.5 text-sm font-medium transition
-                ${
-                  isActive
-                    ? "bg-[#C7E7E1] text-teal-700"
-                    : "text-gray-700 hover:bg-[#C7E7E1]"
-                }`
+                `text-xs font-semibold uppercase tracking-[0.25em] transition
+                 ${isActive ? "text-gray-900" : "text-gray-500 hover:text-gray-900"}`
               }
             >
-              Report Issue
+              {label}
             </NavLink>
+          ))}
+        </nav>
 
-
-              
-          )}
-
-          {user && (
-  <NavLink
-    to="/profile"
-    className={({ isActive }) =>
-      `rounded-full px-4 py-1.5 text-sm font-medium transition
-      ${
-        isActive
-          ? "bg-[#C7E7E1] text-teal-700"
-          : "text-gray-700 hover:bg-[#C7E7E1]"
-      }`
-    }
-  >
-    My Reports
-  </NavLink>
-)}
-
-        </div>
-
-        
-
-        {/* Right: Auth Actions */}
+        {/* RIGHT */}
         <div className="flex items-center gap-3">
           {!user ? (
-            <>
-              <NavLink
-                to="/login"
-                className="text-sm font-medium text-gray-700 hover:text-gray-900"
-              >
-                Sign In
-              </NavLink>
-
-              <NavLink
-                to="/signup"
-                className="rounded-full bg-teal-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-teal-600"
-              >
-                Get Started
-              </NavLink>
-            </>
+            <NavLink
+              to="/signup"
+              className="hidden md:inline rounded-full px-5 py-2 text-sm font-semibold
+                         bg-teal-100 text-teal-900 border border-teal-200"
+            >
+              JOIN
+            </NavLink>
           ) : (
-            <>
-              <span className="text-sm text-gray-700">
-                {user.email}
-              </span>
+            <div className="hidden md:flex items-center gap-3">
+              <NavLink
+                to="/profile"
+                className="flex items-center gap-2 border px-4 py-2 rounded-full"
+              >
+                <div className="h-7 w-7 rounded-full bg-teal-100 flex items-center justify-center text-xs font-bold text-teal-800">
+                  {displayName[0].toUpperCase()}
+                </div>
+                <span className="text-sm">{displayName}</span>
+              </NavLink>
 
               <button
                 onClick={handleLogout}
-                className="rounded-full border border-teal-500 px-4 py-2 text-sm font-semibold text-teal-600 transition hover:bg-teal-50"
+                className="px-4 py-2 text-sm border rounded-full"
               >
                 Logout
               </button>
-            </>
+            </div>
+          )}
+
+          {/* MOBILE TOGGLE */}
+          <button
+            className="md:hidden"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
+      </div>
+
+      {/* MOBILE MENU */}
+      {open && (
+        <div className="md:hidden border-t bg-white px-6 py-6 space-y-5">
+          {links.map(({ to, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              onClick={() => setOpen(false)}
+              className="block text-sm font-semibold uppercase tracking-widest text-gray-800"
+            >
+              {label}
+            </NavLink>
+          ))}
+
+          {user && (
+            <button
+              onClick={handleLogout}
+              className="mt-4 w-full text-left text-sm font-semibold text-teal-700"
+            >
+              Logout
+            </button>
           )}
         </div>
-
-      </div>
-    </nav>
+      )}
+    </header>
   );
 };
 
 export default Navbar;
+
