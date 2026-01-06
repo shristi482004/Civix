@@ -1,132 +1,106 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { MapPin } from "lucide-react";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase.js";
-import { useAuth } from "/Users/shristishristi/Desktop/civix/Civix/src/context/Authcontext.jsx";
+import { useAuth } from "../context/Authcontext.jsx";
 import toast from "react-hot-toast";
 
-
-
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
+
+  const displayName =
+    user?.displayName ||
+    user?.email?.split("@")[0] ||
+    "Citizen";
 
   const handleLogout = async () => {
     await signOut(auth);
-      toast.success("Logged out successfully");
+    toast.success("Logged out successfully");
     navigate("/login");
   };
 
   return (
-    <nav className="w-full bg-[#E6F4F1] px-6 py-4">
-      <div className="mx-auto flex max-w-7xl items-center justify-between">
-        
-        {/* Left: Logo */}
-        <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-500">
-            <MapPin className="h-5 w-5 text-white" />
-          </div>
-          <span className="text-xl font-semibold text-gray-900">
-            Civix
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+      <div className="relative mx-auto max-w-7xl px-6 py-5 flex items-center">
+
+        {/* LEFT — LOGO */}
+        <NavLink to="/" className="flex-shrink-0">
+          <span className="text-2xl font-serif font-bold text-gray-900 tracking-tight">
+            civix<span className="text-teal-600">.</span>
           </span>
-        </div>
+        </NavLink>
 
-        {/* Center: Navigation */}
-        <div className="hidden md:flex items-center gap-2 rounded-full bg-[#D9EFEB] px-2 py-1">
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              `rounded-full px-4 py-1.5 text-sm font-medium transition
-              ${
-                isActive
-                  ? "bg-[#C7E7E1] text-teal-700"
-                  : "text-gray-700 hover:bg-[#C7E7E1]"
-              }`
-            }
-          >
-            Home
-          </NavLink>
+        {/* CENTER — EDITORIAL NAV (TRUE CENTER) */}
+        <nav className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-12">
+          {[
+            { to: "/", label: "HOME" },
+            { to: "/browse", label: "ISSUES FEED" },
+            user && { to: "/report", label: "REPORT ISSUE" },
+            user && { to: "/profile", label: "MY REPORTS" },
+            isAdmin && { to: "/admin", label: "ADMIN" }
+          ]
+            .filter(Boolean)
+            .map(({ to, label }) => (
+              <NavLink
+                key={to}
+                to={to}
+                className={({ isActive }) =>
+                  `
+                  relative text-xs font-semibold tracking-[0.25em] uppercase
+                  transition-colors duration-200
+                  ${
+                    isActive
+                      ? "text-gray-900"
+                      : "text-gray-500 hover:text-gray-900"
+                  }
+                  after:absolute after:-bottom-2 after:left-0 after:h-[2px]
+                  after:w-full after:bg-teal-500 after:origin-left
+                  after:scale-x-0 after:transition-transform after:duration-300
+                  hover:after:scale-x-100
+                `
+                }
+              >
+                {label}
+              </NavLink>
+            ))}
+        </nav>
 
-          <NavLink
-            to="/browse"
-            className={({ isActive }) =>
-              `rounded-full px-4 py-1.5 text-sm font-medium transition
-              ${
-                isActive
-                  ? "bg-[#C7E7E1] text-teal-700"
-                  : "text-gray-700 hover:bg-[#C7E7E1]"
-              }`
-            }
-          >
-            Browse Issues
-          </NavLink>
-
-          {user && (
-            <NavLink
-              to="/report"
-              className={({ isActive }) =>
-                `rounded-full px-4 py-1.5 text-sm font-medium transition
-                ${
-                  isActive
-                    ? "bg-[#C7E7E1] text-teal-700"
-                    : "text-gray-700 hover:bg-[#C7E7E1]"
-                }`
-              }
-            >
-              Report Issue
-            </NavLink>
-
-
-              
-          )}
-
-          {user && (
-  <NavLink
-    to="/profile"
-    className={({ isActive }) =>
-      `rounded-full px-4 py-1.5 text-sm font-medium transition
-      ${
-        isActive
-          ? "bg-[#C7E7E1] text-teal-700"
-          : "text-gray-700 hover:bg-[#C7E7E1]"
-      }`
-    }
-  >
-    My Reports
-  </NavLink>
-)}
-
-        </div>
-
-        
-
-        {/* Right: Auth Actions */}
-        <div className="flex items-center gap-3">
+        {/* RIGHT — USER / CTA (EQUAL VISUAL WEIGHT TO LOGO) */}
+        <div className="ml-auto flex items-center gap-4">
           {!user ? (
-            <>
-              <NavLink
-                to="/login"
-                className="text-sm font-medium text-gray-700 hover:text-gray-900"
-              >
-                Sign In
-              </NavLink>
-
-              <NavLink
-                to="/signup"
-                className="rounded-full bg-teal-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-teal-600"
-              >
-                Get Started
-              </NavLink>
-            </>
+            <NavLink
+              to="/signup"
+              className="rounded-full px-6 py-2.5 text-sm font-semibold
+                         text-teal-900 bg-teal-100 border border-teal-200
+                         transition hover:bg-teal-200 hover:shadow-md"
+            >
+              JOIN THE PLATFORM
+            </NavLink>
           ) : (
             <>
-              <span className="text-sm text-gray-700">
-                {user.email}
-              </span>
+              {/* USER CHIP */}
+              <NavLink
+                to="/profile"
+                className="group flex items-center gap-2 rounded-full
+                           border border-gray-200 px-4 py-2
+                           transition hover:bg-gray-50"
+              >
+                <div className="h-7 w-7 rounded-full bg-teal-100
+                                flex items-center justify-center
+                                text-xs font-bold text-teal-800">
+                  {displayName.charAt(0).toUpperCase()}
+                </div>
+
+                <span className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
+                  {displayName}
+                </span>
+              </NavLink>
 
               <button
                 onClick={handleLogout}
-                className="rounded-full border border-teal-500 px-4 py-2 text-sm font-semibold text-teal-600 transition hover:bg-teal-50"
+                className="rounded-full px-4 py-2 text-sm font-semibold
+                           text-teal-900 border border-teal-200
+                           transition hover:bg-teal-50"
               >
                 Logout
               </button>
@@ -135,7 +109,7 @@ const Navbar = () => {
         </div>
 
       </div>
-    </nav>
+    </header>
   );
 };
 

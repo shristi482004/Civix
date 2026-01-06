@@ -24,7 +24,7 @@ const dummyIssues = [
     category: "Road & Infrastructure",
     status: "in_progress",
     imageUrl:
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70",
+      "https://images.unsplash.com/photo-1587763483696-6d41d2de6084?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     location: "Main St & Oak Ave",
     createdAt: "2 days ago"
   },
@@ -36,7 +36,7 @@ const dummyIssues = [
     category: "Sanitation",
     status: "reported",
     imageUrl:
-      "https://images.unsplash.com/photo-1581574203491-1c76ed7f66b5",
+      "https://images.unsplash.com/photo-1598706496038-58784d1287cd?q=80&w=988&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     location: "Central Park",
     createdAt: "1 day ago"
   },
@@ -48,7 +48,7 @@ const dummyIssues = [
     category: "Electricity",
     status: "resolved",
     imageUrl:
-      "https://images.unsplash.com/photo-1504198453319-5ce911bafcde",
+      "https://images.unsplash.com/photo-1742119193536-7d228ef7f466?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     location: "45 Cedar Lane",
     createdAt: "5 days ago"
   },
@@ -60,7 +60,7 @@ const dummyIssues = [
     category: "Water Supply",
     status: "in_progress",
     imageUrl:
-      "https://images.unsplash.com/photo-1601972599720-b5b6a02a94c1",
+      "https://images.unsplash.com/photo-1635351235168-568f7afff426?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     location: "Elm Street Bus Stop",
     createdAt: "3 days ago"
   },
@@ -72,7 +72,7 @@ const dummyIssues = [
     category: "Public Safety",
     status: "reported",
     imageUrl:
-      "https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf",
+      "https://plus.unsplash.com/premium_photo-1751835491345-f33aed5db0a8?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     location: "Community Park",
     createdAt: "12 hours ago"
   },
@@ -84,7 +84,7 @@ const dummyIssues = [
     category: "Sanitation",
     status: "reported",
     imageUrl:
-      "https://images.unsplash.com/photo-1597262975002-c5c3b14bbd62",
+      "https://images.unsplash.com/photo-1662611527890-fcb76be46544?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     location: "Riverside Trail",
     createdAt: "4 hours ago"
   }
@@ -148,86 +148,94 @@ const BrowseIssues = () => {
   });
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-10">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Browse Issues</h1>
-        <p className="mt-2 text-gray-600">
-          Explore civic issues reported by community members.
-        </p>
-      </div>
+  <div className="mx-auto max-w-7xl px-6 py-20">
+    {/* Header */}
+    <div className="mb-14 max-w-2xl">
+      <span className="block text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400 mb-4">
+        Real-time reports
+      </span>
 
-      {/* Search */}
-      <div className="relative mb-6 max-w-md">
-        <Search className="absolute left-3 top-3 text-gray-400" size={18} />
-        <input
-          type="text"
-          placeholder="Search issues..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full rounded-lg border px-10 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
-        />
-      </div>
+      <h1 className="text-5xl font-serif font-bold text-gray-900 leading-tight">
+        Browse civic issues
+      </h1>
 
-      {/* Filters */}
-      <div className="mb-6 flex flex-wrap gap-3">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setCategory(cat)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium border
-              ${
-                category === cat
-                  ? "bg-teal-500 text-white border-teal-500"
-                  : "text-teal-600 border-teal-500 hover:bg-teal-50"
-              }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
-      <div className="mb-8 flex gap-3">
-        {statuses.map((s) => (
-          <button
-            key={s}
-            onClick={() => setStatus(s)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium border capitalize
-              ${
-                status === s
-                  ? "bg-teal-500 text-white border-teal-500"
-                  : "text-gray-600 border-gray-300 hover:bg-gray-100"
-              }`}
-          >
-            {s.replace("_", " ")}
-          </button>
-        ))}
-      </div>
-
-      {/* Results */}
-      <p className="mb-4 text-sm text-gray-500">
-        Showing {filteredIssues.length} issues
+      <p className="mt-4 text-lg text-gray-600 font-light">
+        Explore civic issues reported by community members.
       </p>
-
-      {/* Grid */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {filteredIssues.map((issue) => (
-          <IssueCard
-  key={issue.id}
-  issue={issue}
-  onView={setSelectedIssue}
-/>
-
-        ))}
-      </div>
-
-      <IssueModal
-  issue={selectedIssue}
-  onClose={() => setSelectedIssue(null)}
-/>
-
     </div>
-  );
+
+    {/* Search */}
+    <div className="relative mb-10 max-w-md">
+      <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+      <input
+        type="text"
+        placeholder="Search issues..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="w-full rounded-full border border-gray-300 px-12 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+      />
+    </div>
+
+    {/* Category filters */}
+    <div className="mb-8 flex flex-wrap gap-3">
+      {categories.map((cat) => (
+        <button
+          key={cat}
+          onClick={() => setCategory(cat)}
+          className={`rounded-full px-5 py-2 text-sm font-semibold border transition
+            ${
+              category === cat
+                ? "bg-teal-600 text-white border-teal-600"
+                : "text-teal-700 border-teal-300 hover:bg-teal-50"
+            }`}
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
+
+    {/* Status filters */}
+    <div className="mb-14 flex flex-wrap gap-3">
+      {statuses.map((s) => (
+        <button
+          key={s}
+          onClick={() => setStatus(s)}
+          className={`rounded-full px-5 py-2 text-sm font-semibold border capitalize transition
+            ${
+              status === s
+                ? "bg-gray-900 text-white border-gray-900"
+                : "text-gray-600 border-gray-300 hover:bg-gray-100"
+            }`}
+        >
+          {s.replace("_", " ")}
+        </button>
+      ))}
+    </div>
+
+    {/* Results count */}
+    <p className="mb-10 text-sm font-medium text-gray-400 uppercase tracking-widest">
+      Showing {filteredIssues.length} issues
+    </p>
+
+    {/* Grid */}
+    <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
+      {filteredIssues.map((issue) => (
+        <IssueCard
+          key={issue.id}
+          issue={issue}
+          onView={setSelectedIssue}
+        />
+      ))}
+    </div>
+
+    {/* Modal */}
+    <IssueModal
+      issue={selectedIssue}
+      onClose={() => setSelectedIssue(null)}
+    />
+  </div>
+);
+
 };
 
 export default BrowseIssues;

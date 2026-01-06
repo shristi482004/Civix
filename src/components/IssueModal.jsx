@@ -1,71 +1,100 @@
-import { X, MapPin, Clock } from "lucide-react";
+import { X } from "lucide-react";
 
 const statusStyles = {
   reported: "bg-orange-100 text-orange-700",
-  in_progress: "bg-blue-100 text-blue-700",
-  resolved: "bg-green-100 text-green-700",
+  in_progress: "bg-teal-100 text-teal-700",
+  resolved: "bg-emerald-100 text-emerald-700",
 };
 
 const IssueModal = ({ issue, onClose }) => {
   if (!issue) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-      <div className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white shadow-xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
+      <div className="w-full max-w-3xl bg-white rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
         
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          className="absolute right-4 top-4 rounded-full p-2 hover:bg-gray-900"
-        >
-          <X size={20} />
-        </button>
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-teal-500" />
+            <h3 className="text-lg font-serif font-bold text-gray-900">
+              Issue Details
+            </h3>
+          </div>
+
+          <button
+            onClick={onClose}
+            className="rounded-full p-2 hover:bg-gray-100 transition"
+          >
+            <X size={20} className="text-gray-500" />
+          </button>
+        </div>
 
         {/* Image */}
         {issue.imageUrl && (
           <img
             src={issue.imageUrl}
             alt={issue.title}
-            className="h-64 w-full rounded-t-2xl object-cover"
+            className="w-full h-64 object-cover"
           />
         )}
 
         {/* Content */}
-        <div className="space-y-5 p-6">
-          {/* Category + Status */}
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-teal-600">
+        <div className="p-8 space-y-6">
+          
+          {/* Category + Date */}
+          <div className="flex flex-wrap items-center gap-3 text-sm">
+            <span className="px-3 py-1 rounded-full border border-teal-200 bg-teal-50 text-teal-700 font-semibold">
               {issue.category}
             </span>
 
-            <span
-              className={`rounded-full px-3 py-1 text-xs font-semibold capitalize ${statusStyles[issue.status]}`}
-            >
-              {issue.status.replace("_", " ")}
+            <span className="text-gray-400 text-sm">
+              Reported on{" "}
+              {issue.createdAt?.toDate
+                ? issue.createdAt.toDate().toLocaleDateString()
+                : issue.createdAt}
             </span>
           </div>
 
           {/* Title */}
-          <h2 className="text-2xl font-semibold text-gray-900">
+          <h2 className="text-3xl font-serif font-bold text-gray-900 leading-tight">
             {issue.title}
           </h2>
 
-          {/* Description */}
-          <p className="text-gray-700">
-            {issue.description}
-          </p>
-
-          {/* Meta info */}
-          <div className="flex flex-wrap items-center gap-6 text-sm text-gray-500">
-            <div className="flex items-center gap-1">
-              <MapPin size={16} />
-              {issue.location}
+          {/* Description + Status */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            {/* Description */}
+            <div className="md:col-span-2">
+              <h4 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">
+                Resident Description
+              </h4>
+              <p className="text-gray-700 leading-relaxed">
+                {issue.description}
+              </p>
             </div>
 
-            <div className="flex items-center gap-1">
-              <Clock size={16} />
-              {issue.createdAt?.toDate().toLocaleString()}
+            {/* Status */}
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">
+                Current Status
+              </h4>
+              <div className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 bg-gray-50">
+                <span
+                  className={`h-3 w-3 rounded-full ${
+                    issue.status === "resolved"
+                      ? "bg-emerald-500"
+                      : issue.status === "in_progress"
+                      ? "bg-teal-500"
+                      : "bg-orange-500"
+                  }`}
+                />
+                <span className="font-semibold text-gray-800 capitalize">
+                  {issue.status.replace("_", " ")}
+                </span>
+              </div>
             </div>
+
           </div>
         </div>
       </div>

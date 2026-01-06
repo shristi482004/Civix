@@ -1,6 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
+import AdminPanel from "./pages/AdminPanel.jsx";
+
+
 
 import {
   createBrowserRouter,
@@ -43,6 +46,15 @@ const router = createBrowserRouter(
     </ProtectedRoute>
   }
 />
+<Route
+  path="admin"
+  element={
+    <ProtectedRoute>
+      <AdminPanel />
+    </ProtectedRoute>
+  }
+/>
+
 
 
       <Route path="login" element={<SignIn />} />

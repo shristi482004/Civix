@@ -13,7 +13,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCoRfMb8R8ZCF4Jhz8uyhKEDCG2jOVSdqM",
   authDomain: "civix-7f8d2.firebaseapp.com",
   projectId: "civix-7f8d2",
-  storageBucket: "civix-7f8d2.firebasestorage.app",
+  storageBucket: "civix-7f8d2.appspot.com",
   messagingSenderId: "849865315616",
   appId: "1:849865315616:web:3277cee5a8b5ecdac3f345",
  

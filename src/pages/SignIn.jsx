@@ -1,82 +1,69 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
-import { useState } from "react";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase.js";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-
-
-
 const SignIn = () => {
-
   const [email, setEmail] = useState("");
-const [password, setPassword] = useState("");
-const navigate = useNavigate();
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-const handleSignIn = async () => {
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    toast.success("Signed in successfully!");
-navigate("/");
- // redirect to homepage
-  } catch (error) {
-    toast.error(err.message);
-
-  }
-};
-
-
+  const handleSignIn = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      toast.success("Signed in successfully!");
+      navigate("/");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+    <div className="min-h-screen flex items-center justify-center bg-[#FDFCFB] px-6">
+      <div className="-mt-30 relative w-full max-w-md rounded-[32px] border border-gray-200 bg-white p-10 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.15)] transition hover:-translate-y-1">
         
-        <h2 className="text-2xl font-semibold text-gray-800 text-center">
-          Sign in to Civix
-        </h2>
-        <p className="text-sm text-gray-500 text-center mt-1">
-          Continue reporting civic issues
+        <p className="text-[11px] font-bold uppercase tracking-[0.35em] text-teal-600/70 text-center mb-6">
+          Civix Access
         </p>
 
-        <form className="mt-6 space-y-4">
-         <input
-  type="email"
-  placeholder="Email address"
-  value={email}
-  onChange={(e) => setEmail(e.target.value)}
-  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-/>
+        <h2 className="text-3xl font-serif font-bold text-gray-900 text-center">
+          Welcome back.
+        </h2>
 
+        <p className="mt-3 text-sm text-gray-600 text-center">
+          Continue contributing to the public civic record.
+        </p>
 
-        <input
-  type="password"
-  placeholder="Password"
-  value={password}
-  onChange={(e) => setPassword(e.target.value)}
-  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-/>
+        <div className="mt-10 space-y-5">
+          <input
+            type="email"
+            placeholder="Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full rounded-xl border px-5 py-3 text-sm outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-200"
+          />
 
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full rounded-xl border px-5 py-3 text-sm outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-200"
+          />
 
-       <button
-  type="button"
-  onClick={handleSignIn}
-  className="w-full bg-teal-600 hover:bg-teal-700 text-white py-2 rounded-lg font-medium transition"
->
-  Sign In
-</button>
-
-        </form>
-
-        <p className="text-sm text-center text-gray-600 mt-6">
-          New to Civix?{" "}
-          <Link
-            to="/signup"
-            className="text-teal-600 hover:underline font-medium"
+          <button
+            onClick={handleSignIn}
+            className="mt-2 w-full rounded-full bg-teal-900 py-3 text-sm font-semibold text-white transition hover:scale-[1.02] hover:bg-teal-800"
           >
-            Sign up
+            Sign in
+          </button>
+        </div>
+
+        <p className="mt-10 text-sm text-center text-gray-600">
+          New to Civix?{" "}
+          <Link to="/signup" className="font-medium text-teal-700 hover:underline">
+            Create an account
           </Link>
         </p>
       </div>

@@ -1,42 +1,20 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import {
-  MapPin,
-  Users,
-  CheckCircle,
-  Clock,
   FileText,
   Camera,
+  Clock,
   Check
 } from "lucide-react";
 
-
-
-
-
 const HomePage = () => {
-
-
-
-
-
-
-  const categories = [
-    { name: "Road & Infrastructure", icon: "🛣️" },
-    { name: "Sanitation", icon: "🗑️" },
-    { name: "Water Supply", icon: "💧" },
-    { name: "Electricity", icon: "⚡" },
-    { name: "Public Safety", icon: "🛡️" }
-  ];
-
   const dummyIssues = [
     {
       id: "1",
       title: "Large pothole on Main Street",
       category: "Road & Infrastructure",
       status: "in_progress",
-      imageUrl:
-        "https://images.unsplash.com/photo-1503376780353-7e6692767b70",
+      imageUrl: "https://images.unsplash.com/photo-1587763483696-6d41d2de6084?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       createdAt: "2 hours ago"
     },
     {
@@ -44,8 +22,7 @@ const HomePage = () => {
       title: "Overflowing garbage bins in park",
       category: "Sanitation",
       status: "reported",
-      imageUrl:
-        "https://images.unsplash.com/photo-1581574203491-1c76ed7f66b5",
+      imageUrl: "https://images.unsplash.com/photo-1598706496038-58784d1287cd?q=80&w=988&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       createdAt: "1 day ago"
     },
     {
@@ -53,187 +30,150 @@ const HomePage = () => {
       title: "Broken streetlight on Cedar Avenue",
       category: "Electricity",
       status: "resolved",
-      imageUrl:
-        "https://images.unsplash.com/photo-1494526585095-c41746248156",
+      imageUrl: "https://images.unsplash.com/photo-1742119193536-7d228ef7f466?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       createdAt: "3 days ago"
     }
   ];
 
   const statusColors = {
-    reported: "bg-orange-100 text-orange-600",
-    in_progress: "bg-blue-100 text-blue-600",
-    resolved: "bg-green-100 text-green-600"
+    reported: "bg-amber-100 text-amber-800",
+    in_progress: "bg-teal-100 text-teal-800",
+    resolved: "bg-emerald-100 text-emerald-800"
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-[#FDFCFB]">
 
-      {/* HERO SECTION */}
-      <section className="bg-gradient-to-br from-teal-600 to-emerald-500 text-white">
-        <div className="mx-auto max-w-7xl px-6 py-24 text-center">
-          <div className="mx-auto mb-6 w-fit rounded-full bg-white/20 px-4 py-2 text-sm">
-            Join 1,200+ active citizens making a difference
-          </div>
+      {/* HERO */}
+      <section className="-mt-24 pb-24 relative min-h-screen flex items-center justify-center overflow-hidden graph-paper">
+        <div className="relative z-10 max-w-6xl px-6 text-center">
+          <p className="animate-fade-up delay-100 text-[11px] font-bold uppercase tracking-[0.35em] text-teal-700/70 mb-8">
+            The Community’s Digital Leader
+          </p>
 
-          <h1 className="text-4xl font-bold md:text-5xl">
-            Report Local Issues.
-            <br />
-            <span className="text-teal-100">
-              Build Better Communities.
+          <h1 className="animate-fade-up delay-200 text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-[1.1] text-gray-900 mb-10">
+            <span className="inline-block bg-teal-100 px-6 py-3 rounded-[26px] text-teal-900 border border-teal-200 -rotate-2 mr-2">
+              Civix.
+            </span>
+            for the <span className="italic font-normal">ignored</span>,<br />
+            the street-smart and<br />
+            the <span className="underline decoration-teal-300 decoration-6 underline-offset-8">
+              civic-obsessed
             </span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-teal-100">
-            Civix empowers you to report civic issues in your neighborhood,
-            track their progress, and collaborate with your community for
-            faster resolutions.
-          </p>
-
-          <div className="mt-10 flex justify-center gap-4">
+          <div className="animate-fade-up delay-300 flex flex-col sm:flex-row justify-center gap-6">
             <NavLink
               to="/report"
-              className="rounded-full bg-white px-6 py-3 font-semibold text-teal-600 hover:bg-teal-50"
+              className="px-10 py-5 bg-teal-900 text-white font-semibold rounded-full text-lg transition hover:scale-[1.04] hover:shadow-lg"
             >
-              Report an Issue →
+              Start a Report — Now
             </NavLink>
 
             <NavLink
               to="/browse"
-              className="rounded-full border border-white/40 px-6 py-3 font-semibold hover:bg-white/10"
+              className="px-10 py-5 bg-white border-2 border-teal-200 text-teal-900 font-semibold rounded-full transition hover:bg-teal-50 hover:scale-[1.03]"
             >
-              Browse Issues
+              Explore the Feed
             </NavLink>
-          </div>
-
-          <div className="mt-12 flex flex-wrap justify-center gap-4 text-sm">
-            <span className="rounded-full bg-white/20 px-4 py-2">
-              📍 Location-based reporting
-            </span>
-            <span className="rounded-full bg-white/20 px-4 py-2">
-              👥 Community collaboration
-            </span>
-            <span className="rounded-full bg-white/20 px-4 py-2">
-              👁️ Transparent tracking
-            </span>
           </div>
         </div>
       </section>
 
-
-      <section className="mx-auto max-w-7xl px-6 py-20">
-  <div className="max-w-3xl">
-    <h2 className="text-3xl font-semibold text-gray-900">
-      About Civix
-    </h2>
-
-    <p className="mt-4 text-lg text-gray-600">
-      Civix is a community-driven platform that helps citizens report,
-      track, and stay informed about civic issues in their neighborhoods.
-    </p>
-
-    <p className="mt-4 text-gray-600">
-      By making public problems visible and structured, Civix encourages
-      accountability, transparency, and collective action.
-    </p>
-
-    <ul className="mt-6 space-y-3 text-gray-700">
-      <li>• Report civic issues with location and images</li>
-      <li>• Track issues reported by others in the community</li>
-      <li>• Build a shared civic record for transparency</li>
-    </ul>
-
-    <p className="mt-6 font-medium text-teal-700">
-      Built for citizens. Designed for transparency.
-    </p>
-  </div>
-</section>
-
-
       {/* STATS */}
-      <section className="bg-gray-50 py-16">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-6 md:grid-cols-4">
-          <StatCard icon={<MapPin />} label="Issues Reported" value="2,847" />
-          <StatCard icon={<Users />} label="Active Citizens" value="1,234" />
-          <StatCard icon={<CheckCircle />} label="Issues Resolved" value="1,892" />
-          <StatCard icon={<Clock />} label="Avg. Resolution Time" value="4.2 days" />
+      <section className="-mt-32 pb-24 graph-paper">
+        <div className="mx-auto max-w-4xl bg-white rounded-[48px] border border-gray-100 shadow-xl p-16 animate-fade-up">
+          <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-gray-400 text-center mb-14">
+            Real-Time Community Impact
+          </p>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
+            <Stat value="1.2k" label="Total Reports" />
+            <Stat value="450" label="Resolved" />
+            <Stat value="22" label="Active Wards" />
+            <Stat value="92%" label="Fix Rate" />
+          </div>
+        </div>
+      </section>
+
+      {/* ABOUT */}
+      <section className="py-24">
+        <div className="mx-auto max-w-4xl px-6 text-center animate-fade-up">
+          <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-gray-400 mb-6">
+            About Civix
+          </p>
+
+          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">
+            A public record<br />
+            <span className="italic text-teal-700">for what gets ignored.</span>
+          </h2>
+
+          <p className="text-lg text-gray-600 leading-relaxed">
+            Civix is a community-powered civic ledger — documenting everyday
+            issues and turning visibility into accountability.
+          </p>
         </div>
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="py-20 text-center">
-        <h2 className="text-3xl font-bold">How Civix Works</h2>
-        <p className="mt-3 text-gray-600">
-          Reporting a civic issue takes just a few minutes.
-        </p>
+      <section className="py-24 bg-[#EEF5F3]">
+        <div className="mx-auto max-w-6xl px-6 text-center">
+          <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-gray-400 mb-6">
+            How it works
+          </p>
 
+          <h2 className="text-4xl font-serif font-bold mb-16">
+            A report becomes a record.
+          </h2>
 
-        <div className="mx-auto mt-12 grid max-w-6xl grid-cols-1 gap-10 px-6 md:grid-cols-4">
-          <HowCard icon={<FileText />} title="Describe the Issue" />
-          <HowCard icon={<Camera />} title="Add a Photo" />
-          <HowCard icon={<Clock />} title="Track Progress" />
-          <HowCard icon={<Check />} title="Issue Resolved" />
+          <div className="grid md:grid-cols-4 gap-14">
+            <HowCard icon={<FileText />} title="Describe the issue" />
+            <HowCard icon={<Camera />} title="Add context & evidence" />
+            <HowCard icon={<Clock />} title="Track its progress" />
+            <HowCard icon={<Check />} title="Resolution is recorded" />
+          </div>
         </div>
       </section>
 
-      {/* CATEGORIES */}
-      <section className="bg-gray-50 py-16">
-        <h2 className="text-center text-3xl font-bold">Issue Categories</h2>
       
-        <div className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-6 px-6 md:grid-cols-5">
-          {categories.map((cat) => (
-            <div
-              key={cat.name}
-              className="rounded-xl border bg-white p-6 text-center hover:shadow-md"
-            >
-              <div className="mb-3 text-3xl">{cat.icon}</div>
-              <p className="font-semibold">{cat.name}</p>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* RECENT ISSUES */}
-      <section className="py-20">
+      <section className="py-24">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="mb-8 flex items-center justify-between">
-            <h2 className="text-3xl font-bold">Recent Issues</h2>
-            <NavLink
-              to="/browse"
-              className="rounded-full border border-teal-500 px-4 py-2 font-semibold text-teal-600 hover:bg-teal-50"
-            >
-              View All Issues →
-            </NavLink>
-          </div>
+          <h2 className="text-5xl font-serif font-bold mb-14">
+            Civic transparency<br />
+            <span className="italic text-teal-700">starts here.</span>
+          </h2>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-10 md:grid-cols-3">
             {dummyIssues.map((issue) => (
               <div
                 key={issue.id}
-                className="overflow-hidden rounded-xl border bg-white"
+                className="bg-white border border-gray-200 rounded-[32px] overflow-hidden transition hover:-translate-y-1 hover:shadow-xl"
               >
                 <img
                   src={issue.imageUrl}
                   alt={issue.title}
-                  className="h-48 w-full object-cover"
+                  className="h-56 w-full object-cover"
                 />
 
-                <div className="p-4">
-                  <span className="text-sm text-teal-600">
+                <div className="p-8">
+                  <span className="text-[11px] font-bold uppercase tracking-widest text-teal-600">
                     {issue.category}
                   </span>
 
-                  <h3 className="mt-2 font-semibold">
+                  <h3 className="mt-3 text-2xl font-serif font-bold">
                     {issue.title}
                   </h3>
 
-                  <div className="mt-4 flex items-center justify-between">
+                  <div className="mt-6 flex items-center justify-between">
                     <span
-                      className={`rounded-full px-3 py-1 text-xs font-semibold ${statusColors[issue.status]}`}
+                      className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest ${statusColors[issue.status]}`}
                     >
                       {issue.status.replace("_", " ")}
                     </span>
 
-                    <span className="text-sm text-gray-500">
+                    <span className="text-xs text-gray-400 font-bold">
                       {issue.createdAt}
                     </span>
                   </div>
@@ -245,28 +185,33 @@ const HomePage = () => {
       </section>
 
       {/* CTA */}
-      <section className="bg-gradient-to-r from-teal-600 to-emerald-500 py-20 text-center text-white">
-        <h2 className="text-4xl font-bold">Ready to Make a Difference?</h2>
-        <p className="mx-auto mt-4 max-w-xl text-teal-100">
-          Join thousands of citizens improving their communities.
+      <section className="py-20 bg-teal-900 text-white text-center">
+        <h2 className="text-4xl md:text-5xl font-serif font-bold">
+          Ready to Make a Difference?
+        </h2>
+
+        <p className="mt-6 text-teal-100 max-w-xl mx-auto">
+          Join thousands of citizens building transparent, accountable communities.
         </p>
 
-        <div className="mt-8 flex justify-center gap-4">
+        <div className="mt-7 flex justify-center gap-6">
           <NavLink
             to="/report"
-            className="rounded-full bg-white px-6 py-3 font-semibold text-teal-600"
+            className="px-10 py-4 bg-white text-teal-900 rounded-full font-semibold transition hover:scale-[1.04]"
           >
-            Report an Issue Now →
+            Report an Issue
           </NavLink>
 
           <NavLink
             to="/browse"
-            className="rounded-full border border-white/40 px-6 py-3 font-semibold"
+            className="px-10 py-4 border border-white/40 rounded-full font-semibold transition hover:bg-white/10"
           >
             Explore Issues
           </NavLink>
         </div>
       </section>
+
+      
     </div>
   );
 };
@@ -275,21 +220,29 @@ export default HomePage;
 
 /* ---------- SMALL COMPONENTS ---------- */
 
-const StatCard = ({ icon, label, value }) => (
-  <div className="rounded-xl bg-white p-6 text-center shadow-sm">
-    <div className="mx-auto mb-3 w-fit rounded-full bg-teal-100 p-3 text-teal-600">
-      {icon}
+const Stat = ({ value, label }) => (
+  <div className="flex flex-col items-center transition hover:-translate-y-1">
+    <div className="w-full aspect-square bg-[#E8F5F3] rounded-[32px] flex items-center justify-center mb-4">
+      <span className="text-5xl md:text-6xl font-serif font-bold text-teal-900">
+        {value}
+      </span>
     </div>
-    <h3 className="text-2xl font-bold">{value}</h3>
-    <p className="text-gray-600">{label}</p>
+    <span className="text-[11px] font-bold uppercase tracking-widest text-gray-400">
+      {label}
+    </span>
   </div>
 );
 
 const HowCard = ({ icon, title }) => (
-  <div className="text-center">
-    <div className="mx-auto mb-4 w-fit rounded-xl bg-teal-500 p-4 text-white">
+  <div className="flex flex-col items-center text-center transition hover:-translate-y-1">
+    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-[24px] bg-white text-teal-900 shadow-sm">
       {icon}
     </div>
-    <h4 className="font-semibold">{title}</h4>
+
+    <h4 className="text-lg font-serif font-semibold text-gray-900">
+      {title}
+    </h4>
+
+    <div className="mt-4 h-[2px] w-10 bg-teal-300/70" />
   </div>
 );
