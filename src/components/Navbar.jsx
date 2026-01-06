@@ -1,4 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase.js";
 import { useAuth } from "../context/Authcontext.jsx";
@@ -7,6 +9,7 @@ import toast from "react-hot-toast";
 const Navbar = () => {
   const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   const displayName =
     user?.displayName ||
@@ -19,96 +22,104 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  const links = [
+    { to: "/", label: "HOME" },
+    { to: "/browse", label: "ISSUES FEED" },
+    user && { to: "/report", label: "REPORT ISSUE" },
+    user && { to: "/profile", label: "MY REPORTS" },
+    isAdmin && { to: "/admin", label: "ADMIN" }
+  ].filter(Boolean);
+
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-      <div className="relative mx-auto max-w-7xl px-6 py-5 flex items-center">
+      <div className="mx-auto max-w-7xl px-5 py-4 flex items-center justify-between">
 
-        {/* LEFT — LOGO */}
-        <NavLink to="/" className="flex-shrink-0">
-          <span className="text-2xl font-serif font-bold text-gray-900 tracking-tight">
-            civix<span className="text-teal-600">.</span>
-          </span>
+        {/* LOGO */}
+        <NavLink to="/" className="text-2xl font-serif font-bold text-gray-900">
+          civix<span className="text-teal-600">.</span>
         </NavLink>
 
-        {/* CENTER — EDITORIAL NAV (TRUE CENTER) */}
-        <nav className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-12">
-          {[
-            { to: "/", label: "HOME" },
-            { to: "/browse", label: "ISSUES FEED" },
-            user && { to: "/report", label: "REPORT ISSUE" },
-            user && { to: "/profile", label: "MY REPORTS" },
-            isAdmin && { to: "/admin", label: "ADMIN" }
-          ]
-            .filter(Boolean)
-            .map(({ to, label }) => (
-              <NavLink
-                key={to}
-                to={to}
-                className={({ isActive }) =>
-                  `
-                  relative text-xs font-semibold tracking-[0.25em] uppercase
-                  transition-colors duration-200
-                  ${
-                    isActive
-                      ? "text-gray-900"
-                      : "text-gray-500 hover:text-gray-900"
-                  }
-                  after:absolute after:-bottom-2 after:left-0 after:h-[2px]
-                  after:w-full after:bg-teal-500 after:origin-left
-                  after:scale-x-0 after:transition-transform after:duration-300
-                  hover:after:scale-x-100
-                `
-                }
-              >
-                {label}
-              </NavLink>
-            ))}
+        {/* DESKTOP NAV */}
+        <nav className="hidden md:flex items-center gap-10">
+          {links.map(({ to, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              className={({ isActive }) =>
+                `text-xs font-semibold uppercase tracking-[0.25em] transition
+                 ${isActive ? "text-gray-900" : "text-gray-500 hover:text-gray-900"}`
+              }
+            >
+              {label}
+            </NavLink>
+          ))}
         </nav>
 
-        {/* RIGHT — USER / CTA (EQUAL VISUAL WEIGHT TO LOGO) */}
-        <div className="ml-auto flex items-center gap-4">
+        {/* RIGHT */}
+        <div className="flex items-center gap-3">
           {!user ? (
             <NavLink
               to="/signup"
-              className="rounded-full px-6 py-2.5 text-sm font-semibold
-                         text-teal-900 bg-teal-100 border border-teal-200
-                         transition hover:bg-teal-200 hover:shadow-md"
+              className="hidden md:inline rounded-full px-5 py-2 text-sm font-semibold
+                         bg-teal-100 text-teal-900 border border-teal-200"
             >
-              JOIN THE PLATFORM
+              JOIN
             </NavLink>
           ) : (
-            <>
-              {/* USER CHIP */}
+            <div className="hidden md:flex items-center gap-3">
               <NavLink
                 to="/profile"
-                className="group flex items-center gap-2 rounded-full
-                           border border-gray-200 px-4 py-2
-                           transition hover:bg-gray-50"
+                className="flex items-center gap-2 border px-4 py-2 rounded-full"
               >
-                <div className="h-7 w-7 rounded-full bg-teal-100
-                                flex items-center justify-center
-                                text-xs font-bold text-teal-800">
-                  {displayName.charAt(0).toUpperCase()}
+                <div className="h-7 w-7 rounded-full bg-teal-100 flex items-center justify-center text-xs font-bold text-teal-800">
+                  {displayName[0].toUpperCase()}
                 </div>
-
-                <span className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
-                  {displayName}
-                </span>
+                <span className="text-sm">{displayName}</span>
               </NavLink>
 
               <button
                 onClick={handleLogout}
-                className="rounded-full px-4 py-2 text-sm font-semibold
-                           text-teal-900 border border-teal-200
-                           transition hover:bg-teal-50"
+                className="px-4 py-2 text-sm border rounded-full"
               >
                 Logout
               </button>
-            </>
+            </div>
+          )}
+
+          {/* MOBILE TOGGLE */}
+          <button
+            className="md:hidden"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
+      </div>
+
+      {/* MOBILE MENU */}
+      {open && (
+        <div className="md:hidden border-t bg-white px-6 py-6 space-y-5">
+          {links.map(({ to, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              onClick={() => setOpen(false)}
+              className="block text-sm font-semibold uppercase tracking-widest text-gray-800"
+            >
+              {label}
+            </NavLink>
+          ))}
+
+          {user && (
+            <button
+              onClick={handleLogout}
+              className="mt-4 w-full text-left text-sm font-semibold text-teal-700"
+            >
+              Logout
+            </button>
           )}
         </div>
-
-      </div>
+      )}
     </header>
   );
 };
