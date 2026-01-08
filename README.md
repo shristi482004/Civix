@@ -266,13 +266,18 @@ It helps users **learn civic responsibility early**, understand how public accou
 
 ---
 
-## Author
+## Contributors 
 
-**Shristi**
-Computer Science Undergraduate
-UI/UX Designer & Web Developer
+## Contributors
 
-> This project reflects a focus on **clarity, accountability, and design-led problem solving** in civic technology.
+**Shristi**  
+UI/UX Design, Firebase Authentication, Firestore Integration, and Deployment
+
+**Ekansh Satsangi**  
+Frontend Development with React and Application Logic
+
+
+
 
 ---
 
