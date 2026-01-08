@@ -10,8 +10,9 @@ const IssueModal = ({ issue, onClose }) => {
   if (!issue) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
-      <div className="w-full max-w-3xl bg-white rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200 max-h-[90vh] flex flex-col">
+   <div className="fixed inset-0 z-50 flex items-start md:items-center justify-center bg-black/40 backdrop-blur-sm px-4 py-4 overflow-y-auto">
+
+      <div className="w-full max-w-3xl bg-white rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200 max-h-[90vh] flex flex-col relative">
         
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
@@ -40,7 +41,8 @@ const IssueModal = ({ issue, onClose }) => {
         )}
 
         {/* Content */}
-        <div className="p-6 md:p-8 space-y-6 overflow-y-auto">
+        <div className="p-6 md:p-8 space-y-6 overflow-y-auto overscroll-contain">
+
           
           {/* Category + Date */}
           <div className="flex flex-wrap items-center gap-3 text-sm">
