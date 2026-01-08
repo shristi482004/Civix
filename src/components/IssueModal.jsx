@@ -11,7 +11,7 @@ const IssueModal = ({ issue, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
-      <div className="w-full max-w-3xl bg-white rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+      <div className="w-full max-w-3xl bg-white rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200 max-h-[90vh] flex flex-col">
         
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
@@ -35,12 +35,12 @@ const IssueModal = ({ issue, onClose }) => {
           <img
             src={issue.imageUrl}
             alt={issue.title}
-            className="w-full h-64 object-cover"
+            className="w-full h-40 md:h-64 object-cover"
           />
         )}
 
         {/* Content */}
-        <div className="p-8 space-y-6">
+        <div className="p-6 md:p-8 space-y-6 overflow-y-auto">
           
           {/* Category + Date */}
           <div className="flex flex-wrap items-center gap-3 text-sm">
@@ -57,7 +57,7 @@ const IssueModal = ({ issue, onClose }) => {
           </div>
 
           {/* Title */}
-          <h2 className="text-3xl font-serif font-bold text-gray-900 leading-tight">
+          <h2 className="text-2xl md:text-3xl font-serif font-bold text-gray-900 leading-tight">
             {issue.title}
           </h2>
 
