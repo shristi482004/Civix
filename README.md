@@ -268,7 +268,6 @@ It helps users **learn civic responsibility early**, understand how public accou
 
 ## Contributors 
 
-## Contributors
 
 **Shristi**  
 UI/UX Design, Firebase Authentication, Firestore Integration, and Deployment
