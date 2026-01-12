@@ -4,6 +4,7 @@ Civix is a modern, community-driven platform designed to document, track, and re
 
 Rather than noise or outrage, Civix focuses on **facts, traceability, and civic responsibility**.
 
+
 ---
 
 ##  What Problem Does Civix Solve?
